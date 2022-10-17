@@ -1,5 +1,5 @@
 # printf ()
-# Contextualization
+## Contextualization
 
 The printf function (which derives its name from "formatted printing") prints a message on the screen using a "format string" that includes instructions for mixing multiple strings in the final string to be displayed on the screen. Languages ​​such as Ruby also include functions similar to this (Ruby printf.).
 
