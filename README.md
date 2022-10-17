@@ -7,7 +7,7 @@ printf is a special function because it receives a variable number of parameters
 printf("Value %d.\n", cont); 
 
   <p align="center">
-  <img src="https://i.ibb.co/ryyYq8D/Percent.png" style="width:80%;"> 
+  <img src="https://i.ytimg.com/vi/mZFdyoZhUb4/maxresdefault.jpg" alt="Printf" width="500" height="400"> 
   <p>
 
 ## Requirements
