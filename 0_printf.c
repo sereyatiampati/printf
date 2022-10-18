@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include"_putchar.c"
+#include "main.h"
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
@@ -48,7 +50,7 @@ int _printf(const char *format, ...)
 	int num;
 	va_list arg;
 
-	va_start(arg, c);
+	va_start(arg, format);
 
 	char outbuf[2048];
 	int i;
@@ -57,12 +59,12 @@ int _printf(const char *format, ...)
 	unsigned int uint_val;
 	int n = strlen(format) - 1;
 
-	while (*c != '\0')
+	while (*format != '\0')
 	{
-		if (*c == '%')
+		if (*format == '%')
 		{
-			c++;
-			switch (*c)
+			format++;
+			switch (*format)
 			{
 				case 'b':
 				case 'B':
@@ -80,19 +82,19 @@ int _printf(const char *format, ...)
 						_putchar('-');
 						num = num * -1;
 					}
-					if (*c == 'b' || *c == 'B')
+					if (*format == 'b' || *format == 'B')
 					{
 						decimal_to_baseN(outbuf, num, 2);
 					}
-					else if (*c == 'o' || *c == 'O')
+					else if (*format == 'o' || *format == 'O')
 					{
 						decimal_to_baseN(outbuf, num, 8);
 					}
-					else if (*c == 'd' || *c == 'D')
+					else if (*format == 'd' || *format == 'D')
 					{
 						decimal_to_baseN(outbuf, num, 10);
 					}
-					else if (*c == 'h' || *c == 'H')
+					else if (*format == 'h' || *format == 'H')
 					{
 						decimal_to_baseN(outbuf, num, 16);
 					}
@@ -141,9 +143,9 @@ int _printf(const char *format, ...)
 		}
 		else
 		{
-			_putchar(*c);
+			_putchar(*format);
 		}
-		c++;
+		format++;
 	}
 	va_end(arg);
 	return (n);
