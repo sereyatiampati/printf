@@ -1,61 +1,91 @@
 #ifndef MAIN_H
 #define MAIN_H
-
 #include <stdarg.h>
-#include <unistd.h>
-#include <stdlib.h>
 
 /**
- * struct print - struct for printer functions
- * @type_arg: identifier
- * @f: pointer to a printer functions
+ * struct specifier - contains specifiers for printf
  *
- * Description: struct that stores pointers to a
- * printer functions.
+ * @width: width of field to print
+ * @precision: precision of field to print
+ * @length: modifies type length. h/l flags. 0 default, +1 per l, -1 per h
+ * @widthflag: tells whether width is set
+ * @precisionflag: tells whether precision is set
+ * @left: left justify, '-'. 0 for right, 1 for left
+ * @sign: force sign, '+'. 0 for no, 1 for yes
+ * @space: space pad left side of positive numbers if leading 0s. 0 no 1 yes
+ * @zero: zero pad numbers up to width. 0 for no, 1 for yes.
+ * @zerox: add leading 0, 0x, or 0X to o, x or X specifiers. 0 no 1 yes
+ * @specifier: the data type to print, c, s, d, x, etc.
  */
-typedef struct print
+typedef struct specifier
 {
-	char *type_arg;
-	int (*f)(va_list, char *, unsigned int);
-} print_t;
+	unsigned int width;
+	unsigned int precision;
+	int length;
+	char widthflag;
+	char precisionflag;
+	char left;
+	char sign;
+	char space;
+	char zero;
+	char zerox;
+	char specifier;
+} specifier;
 
-int _printf(const char *format, ...);
-int print_prg(va_list __attribute__((unused)), char *, unsigned int);
-int print_chr(va_list arguments, char *buf, unsigned int ibuf);
-int print_str(va_list arguments, char *buf, unsigned int ibuf);
-int print_int(va_list arguments, char *buf, unsigned int ibuf);
-int print_bnr(va_list arguments, char *buf, unsigned int ibuf);
-int print_unt(va_list arguments, char *buf, unsigned int ibuf);
-int print_oct(va_list arguments, char *buf, unsigned int ibuf);
-int print_hex(va_list arguments, char *buf, unsigned int ibuf);
-int print_upx(va_list arguments, char *buf, unsigned int ibuf);
-int print_usr(va_list arguments, char *buf, unsigned int ibuf);
-int print_add(va_list arguments, char *buf, unsigned int ibuf);
-int print_rev(va_list arguments, char *buf, unsigned int ibuf);
-int print_rot(va_list arguments, char *buf, unsigned int ibuf);
-int prinlint(va_list arguments, char *buf, unsigned int ibuf);
-int prinlunt(va_list arguments, char *buf, unsigned int ibuf);
-int prinloct(va_list arguments, char *buf, unsigned int ibuf);
-int prinlhex(va_list arguments, char *buf, unsigned int ibuf);
-int prinlupx(va_list arguments, char *buf, unsigned int ibuf);
-int prinhint(va_list arguments, char *buf, unsigned int ibuf);
-int prinhunt(va_list arguments, char *buf, unsigned int ibuf);
-int prinhoct(va_list arguments, char *buf, unsigned int ibuf);
-int prinhhex(va_list arguments, char *buf, unsigned int ibuf);
-int prinhupx(va_list arguments, char *buf, unsigned int ibuf);
-int prinpint(va_list arguments, char *buf, unsigned int ibuf);
-int prinnoct(va_list arguments, char *buf, unsigned int ibuf);
-int prinnhex(va_list arguments, char *buf, unsigned int ibuf);
-int prinnupx(va_list arguments, char *buf, unsigned int ibuf);
-int prinsint(va_list arguments, char *buf, unsigned int ibuf);
-int (*get_print_func(const char *s, int index))(va_list, char *, unsigned int);
-int ev_print_func(const char *s, int index);
-unsigned int handl_buf(char *buf, char c, unsigned int ibuf);
-int print_buf(char *buf, unsigned int nbuf);
-char *fill_binary_array(char *binary, long int int_in, int isneg, int limit);
-char *fill_oct_array(char *bnr, char *oct);
-char *fill_long_oct_array(char *bnr, char *oct);
-char *fill_short_oct_array(char *bnr, char *oct);
-char *fill_hex_array(char *bnr, char *hex, int isupp, int limit);
+/* from printf.c */
+int _printf(char *format, ...);
+
+/* from prep_types.c */
+char *prep_string(char *str, specifier spec);
+char *prep_numeric(char *str, specifier spec);
+
+/* from utility.c */
+int _strlen(char *str);
+int ifputs(char *s);
+
+/* from itos.c */
+char *itos(va_list list);
+char *hitos(va_list list);
+char *litos(va_list list);
+char *hhitos(va_list list);
+
+/* from uitob.c */
+char *uitob(va_list list);
+char *luitob(va_list list);
+char *huitob(va_list list);
+char *hhuitob(va_list list);
+
+/* from utos.c */
+char *utos(va_list list);
+char *hutos(va_list list);
+char *hhutos(va_list list);
+char *lutos(va_list list);
+
+/* from itoo.c */
+char *itoo(va_list list);
+char *litoo(va_list list);
+char *hitoo(va_list list);
+char *hhitoo(va_list list);
+
+/* from itox.c */
+char *itox(va_list list);
+char *litox(va_list list);
+char *hitox(va_list list);
+char *hhitox(va_list list);
+
+/* from itox.c */
+char *itoX(va_list list);
+char *hitoX(va_list list);
+char *hhitoX(va_list list);
+char *litoX(va_list list);
+
+/* from stos.c */
+char *rev(char *str);
+char *rot(char *str);
+char *print_hidden(char *str);
+char *null(void);
+
+/* from ptos.c */
+char *nil(void);
 
 #endif
